@@ -1,0 +1,13 @@
+#content {
+
+}
+
+table {
+  flex: auto;
+  flex-direction: column;
+  width: 100%;
+}
+th {
+  border: solid 1px black;
+  flex-grow: inherit;
+}
