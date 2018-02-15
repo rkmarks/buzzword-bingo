@@ -8,13 +8,21 @@ export default class BingoBoard extends Component {
 
   render() {
     return(
-      <table className='bingo-table'>
-        <thead className='bingo-header'>
-          <BingoRow isHeaderRow/>
-        </thead>
-        <tbody className='bingo-body'>
-        </tbody>
-      </table>
+      <div>
+        <header className='header'>
+          <h1>GoDaddy Buzzword Bingo</h1>
+        </header>
+        <main className='container'>
+          <table className='bingo-table'>
+            <thead className='bingo-header'>
+              <BingoRow isHeaderRow/>
+            </thead>
+            <tbody className='bingo-body'>
+              <BingoRow/>
+            </tbody>
+          </table>
+        </main>
+      </div>
     );
   }
 }

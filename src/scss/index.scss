@@ -1,15 +1,37 @@
-#content {
+@import 'variables';
 
+body {
+  background-color: $secondary
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header {
+  text-align: center;
 }
 
 .bingo-table {
-  
+  border: $border;
+  width: 100%;
 }
 
 .bingo-header {
-
+  th {
+    background-color: $primary;
+    color: $secondary;
+    border: $border;
+    height: 40px;
+    justify-content: space-around;
+    align-content: space-between;
+  }
 }
 
 .bingo-body {
-
+  border: $border;
 }

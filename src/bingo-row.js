@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BingoHeading from './bingo-heading';
+import words from './words';
 
 const headerData = ['B', 'I', 'N', 'G', 'O'];
 
@@ -14,7 +15,7 @@ export default class BingoRow extends Component {
         return <BingoHeading key={ idx }>{ letter }</BingoHeading>;
       });
     } else {
-
+      
     }
     return (
       <tr>{ cells }</tr>
