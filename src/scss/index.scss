@@ -1,24 +1,27 @@
 @import 'variables';
 
 body {
-  background-color: $secondary
+  background-color: $godaddy;
+}
+
+h1 {
+  color: $secondary;
+  text-align: center;
 }
 
 .container {
-  width: 100%;
+  width: 100vw;
   margin-right: auto;
   margin-left: auto;
   display: flex;
   flex-wrap: wrap;
 }
 
-.header {
-  text-align: center;
-}
-
 .bingo-table {
   border: $border;
-  width: 100%;
+  width: 100vw;
+  height: 75vh;
+  background-color: $secondary;
 }
 
 .bingo-header {
@@ -26,7 +29,8 @@ body {
     background-color: $primary;
     color: $secondary;
     border: $border;
-    height: 40px;
+    height: 50px;
+    width: 20%;
     justify-content: space-around;
     align-content: space-between;
   }
@@ -34,4 +38,18 @@ body {
 
 .bingo-body {
   border: $border;
+  tr {
+    width: 20%;
+  }
+}
+
+.bingo-cell {
+  text-align: center;
+  border: $border;
+  font-weight: bold;
+}
+
+.active-cell {
+  background-color: $primary;
+  color: $secondary;
 }
