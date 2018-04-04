@@ -3,31 +3,22 @@ import PropTypes from 'prop-types';
 
 export default class BingoCell extends Component {
 
-  constructor(props, ...args) {
-    super(props, ...args)
-    this.state = {
-      isActive: false
-    }
-    this.setCellActive = this.setCellActive.bind(this);
-  }
-
-  setCellActive() {
-    const { isActive } = this.state;
-    this.setState({
-      isActive: !isActive
-    });
-  }
-
   render() {
-    const { children } = this.props;
-    const { isActive } = this.state;
+    const { children, isActive, isToggleable, onClick } = this.props;
     const activeClass = isActive ? 'active-cell': '';
     return (
-      <td className={`bingo-cell ${activeClass}`} onClick={this.setCellActive} >{ children }</td>
+      <td className={`bingo-cell ${activeClass}`} onClick={(isToggleable && onClick) || void 0} >{ children }</td>
     );
   }
 }
 
 BingoCell.propTypes = {
-  children: PropTypes.node.isRequired
+  isToggleable: PropTypes.bool,
+  isActive: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func
+};
+
+BingoCell.defaultProps = {
+  isToggleable: true
 };

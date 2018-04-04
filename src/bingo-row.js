@@ -8,7 +8,7 @@ const headerData = ['B', 'I', 'N', 'G', 'O'];
 export default class BingoRow extends Component {
 
   render() {
-    const { isHeaderRow, words, rowState } = this.props;
+    const { isHeaderRow, words, rowState, isMiddleRow, onCellClick } = this.props;
     let cells;
     if (isHeaderRow) {
       cells = headerData.map((letter, idx) => {
@@ -16,7 +16,10 @@ export default class BingoRow extends Component {
       });
     } else {
       cells = words.map((word, idx) => {
-        return <BingoCell key={idx}>{ word }</BingoCell>;
+        if (isMiddleRow && idx === 2) {
+          return <BingoCell isActive={rowState[idx]} key={idx} isToggleable={false}>Free Cell</BingoCell>;
+        }
+        return <BingoCell isActive={rowState[idx]} key={idx} onClick={() => { onCellClick(idx); }}>{ word }</BingoCell>;
       });
     }
     return (
@@ -26,11 +29,14 @@ export default class BingoRow extends Component {
 }
 
 BingoRow.propTypes = {
+  isMiddleRow: PropTypes.bool,
   isHeaderRow: PropTypes.bool,
   words: PropTypes.arrayOf(PropTypes.string),
-  rowState: PropTypes.arrayOf(PropTypes.bool)
+  rowState: PropTypes.arrayOf(PropTypes.bool),
+  onCellClick: PropTypes.func 
 };
 
 BingoRow.defaultProps = {
-  isHeaderRow: false
+  isHeaderRow: false,
+  isMiddleRow: false
 };

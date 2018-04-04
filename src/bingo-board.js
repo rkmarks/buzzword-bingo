@@ -10,8 +10,10 @@ export default class BingoBoard extends Component {
     super(props, ...args);
     this.state = {
       words: this.getRandomTwentyFive(),
-      boardState: this.getClearBoard()
+      boardState: this.getClearBoard(),
+      won: false
     };
+    this.reset = this.reset.bind(this);
   }
 
   getClearBoard() {
@@ -47,13 +49,70 @@ export default class BingoBoard extends Component {
     return randomWords;
   }
 
+  toggleCell(rowNum, colNum) {
+    const { boardState } = this.state;
+    const newState = boardState[rowNum][colNum] = !boardState[rowNum][colNum];
+    const didWin = newState && this.isWinner(rowNum, colNum);
+    this.setState({ boardState, won: didWin });
+  }
+
+  reset() {
+    this.setState({ 
+      won: false,
+      boardState: this.getClearBoard(),
+      words: this.getRandomTwentyFive()
+    });
+  }
+
+  isWinner(rowNum, colNum) {
+    if (this.isColumnWinner(colNum)){
+      return true;
+    } 
+    if (this.isRowWinner(rowNum)) {
+      return true;
+    }
+    if (rowNum === colNum && this.isTLBRWinner()) {
+      return true;
+    }
+    if (rowNum + colNum === this.state.boardState.length - 1 && this.isTRBLWinner()) {
+      return true;
+    }
+    return false;
+  }
+
+  isColumnWinner(colNum) {
+    const { boardState } = this.state;
+    return boardState.every((row) => {
+      return row[colNum];
+    });
+  }
+
+  isRowWinner(rowNum) {
+    const { boardState } = this.state;
+    return boardState[rowNum].every(val => val);
+  }
+
+  isTLBRWinner() {
+    const { boardState } = this.state;
+    return boardState.every((row, i) => {
+      return row[i];
+    });
+  }
+
+  isTRBLWinner() {
+    const { boardState } = this.state;
+    return boardState.every((row, i) => {
+      return row[row.length - 1 - i];
+    });
+  }
+
   render() {
-    const { words, boardState } = this.state;
+    const { words, boardState, won } = this.state;
     const rows = [];
     for (let i=0; i < 5; i++) {
       const rowWords = words.slice(i * 5, (i + 1) * 5);
       const rowState = boardState[i];
-      rows.push(<BingoRow words={rowWords} rowState={rowState} key={i} />);
+      rows.push(<BingoRow words={rowWords} rowState={rowState} key={i} isMiddleRow={i === 2} onCellClick={this.toggleCell.bind(this, i)}/>);
     }
     return (
       <div>
@@ -69,6 +128,16 @@ export default class BingoBoard extends Component {
               { rows }
             </tbody>
           </table>
+          { won && 
+            <div>
+              <div className='overlay'></div>
+              <div className='modal'>
+                <p>You won!!!!</p>
+                <p>
+                  <button onClick={ this.reset }>Play Again</button>
+                </p>
+              </div>
+            </div> }
         </main>
       </div>
     );

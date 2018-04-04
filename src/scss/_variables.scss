@@ -1,5 +1,14 @@
-$border: solid 1px black;
+//colors
 $primary: #00a63f;
 $secondary: #ECFFF3;
 $dark: #006C2A;
 $godaddy: #02C54C;
+$black: #000;
+//border
+$border: solid 1px $black;
+//modal
+$zindex-modal-backdrop: 1040 !default;
+$zindex-modal: 1050 !default;
+$modal-backdrop-bg : $black !default;
+$zindex-modal-bg: $zindex-modal-backdrop;
+$modal-backdrop-opacity: .5 !default;
